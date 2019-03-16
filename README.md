@@ -76,6 +76,26 @@
 
 #### 3-5 Eureka Server 的部署
 
+1. hosts文件
+
+   ```
+   127.0.0.1 server1
+   127.0.0.1 server2
+   127.0.0.1 server3
+   ```
+
+2. 使用不同的配置文件打包
+
+   ```shell
+   mvn clean package -Dmaven.test.skip=true -U
+   cd target 
+   java -jar ad-eureka-1.0-SNAPSHOT.jar --spring.profiles.active=server1
+   java -jar ad-eureka-1.0-SNAPSHOT.jar --spring.profiles.active=server2
+   java -jar ad-eureka-1.0-SNAPSHOT.jar --spring.profiles.active=server3
+   ```
+
+   
+
 #### 3-6 微服务架构及网关组件介绍
 
 #### 3-7 网关启动程序的开发
