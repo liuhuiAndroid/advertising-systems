@@ -12,6 +12,7 @@
     <modules>
         <module>ad-eureka</module>
         <module>ad-gateway</module>
+        <module>noc-ad-service</module>
     </modules>
 
     <!--父模块pom文件的配置：packaging类型必须是pom-->
