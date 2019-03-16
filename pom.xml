@@ -8,6 +8,11 @@
     <artifactId>noc-ad</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <!--聚合子模块：使用modules标签-->
+    <modules>
+        <module>ad-eureka</module>
+    </modules>
+
     <!--父模块pom文件的配置：packaging类型必须是pom-->
     <packaging>pom</packaging>
 
