@@ -244,3 +244,26 @@ show tables;
 #### 关于 MySQL 索引的介绍及作业
 
 #### 关于 MySQL 事务隔离级别的介绍及作业
+
+
+
+## 附录
+
+#### docker
+
+```shell
+docker run --name mysql8 -e MYSQL_ROOT_PASSWORD=mySt8#pW -p 3306:3306 -d mysql:8.0.12 --character-set-server=utf8mb4
+```
+
+```shell
+# 解决mysql8+使用navicat连接乱码问题
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'mySt8#pW' PASSWORD EXPIRE NEVER; #修改加密规则 
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'mySt8#pW'; #更新一下用户的密码 
+FLUSH PRIVILEGES; #刷新权限 
+# --------------------------------------------------
+select user,plugin from user where user = 'root';
+delete from user where user = 'root' and plugin = 'caching_sha2_password'
+update user set host = '%' where user = 'root';
+FLUSH PRIVILEGES;
+```
+

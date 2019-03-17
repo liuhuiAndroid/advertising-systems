@@ -15,9 +15,9 @@ spring:
       hibernate.format_sql: true
     open-in-view: false
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/noc_ad_data?autoReconnect=true
+    url: jdbc:mysql://118.126.111.144:3306/noc_ad_data?autoReconnect=true
     username: root
-    password: Djangobbs
+    password: mySt8#pW
     tomcat:
       max-active: 4
       min-idle: 2
