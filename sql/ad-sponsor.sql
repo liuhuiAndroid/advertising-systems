@@ -1,4 +1,4 @@
--- imooc-ad 数据库
+-- noc-ad 数据库 mysql
 drop DATABASE noc_ad_data;
 CREATE DATABASE noc_ad_data character set utf8;
 
