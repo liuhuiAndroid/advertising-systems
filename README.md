@@ -189,6 +189,8 @@
 
 2. 容器启动之后执行的操作
 
+   CommandLineRunner、ApplicationRunner 接口是在容器启动成功后的最后一步回调
+
    ```
    ApplicationRunner 优先执行
    CommandLineRunner @Order可以修改执行顺序
@@ -245,25 +247,113 @@ show tables;
 
 #### 关于 MySQL 事务隔离级别的介绍及作业
 
+## 第6章 广告检索系统 - 微服务调用
+
+注册到 Eureka Server 的各个微服务之间可以通过 Spring Cloud 自带的组件实现服务之间的调用
+
+#### 基于 Ribbon 实现微服务调用
+
+Ribbon 是一个客户端负载均衡器，可以很好的控制 HTTP 和 TCP 客户端的行为
+
+1. SearchApplication.java 中完成注入，并标记 @LoadBalanced 开启负载均衡的功能
+2. SearchController.java 中通过 RestTemplate 调用服务接口，与常见的 RestTemplate 不同的是，调用使用的不再是 ip + port，而是服务名。这是通过注册中心（Eureka Server）实现的。
+
+#### 基于 Feign 实现微服务调用
+
+Feign 可以实现声明式的 Web 服务客户端
+
+1. 通过 @FeignClient 指定调用的服务名称
+2. 在接口上声明 @RequestMapping 指明调用服务的地址与请求类型
+3. 通过在 @FeignClient 中配置 fallback 指定熔断
+4. 实现接口：SponsorClient.java，熔断：SponsorClientHystrix.java
+
+思考：
+
+1. 使用 Feign 的时候，要重复定义请求与响应对象，你会怎样修改，让它们只定义一次呢？（需要注意，定义在通用模块中显然是不合适的）
+2. 使用 Feign 的时候抛出了异常，你觉得需要做兜底的回退吗？
+
 
 
 ## 附录
 
-#### docker
+#### docker 基本命令
+
+```shell
+systemctl start docker # 启动docker
+docker restart `container id` # 重启container
+```
+
+#### mysql 安装
 
 ```shell
 docker run --name mysql8 -e MYSQL_ROOT_PASSWORD=mySt8#pW -p 3306:3306 -d mysql:8.0.12 --character-set-server=utf8mb4
 ```
 
+#### kafka 安装
+
 ```shell
-# 解决mysql8+使用navicat连接乱码问题
-ALTER USER 'root'@'localhost' IDENTIFIED BY 'mySt8#pW' PASSWORD EXPIRE NEVER; #修改加密规则 
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'mySt8#pW'; #更新一下用户的密码 
-FLUSH PRIVILEGES; #刷新权限 
-# --------------------------------------------------
-select user,plugin from user where user = 'root';
-delete from user where user = 'root' and plugin = 'caching_sha2_password'
-update user set host = '%' where user = 'root';
-FLUSH PRIVILEGES;
+# docker compose 安装
+sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose --version
+vi docker-compose.yml
+docker-compose up -d
+docker ps
+docker-compose ps
+docker-compose scale kafka=3
+docker-compose stop  # 停止
+docker-compose restart # 重启服务
+docker-compose down # 停止并移除容器
+docker exec root_kafka_1 kafka-topics.sh --describe --topic topic001 --zookeeper zookeeper:2181 # 查看topic001的基本情况
 ```
 
+```dockerfile
+# docker-compose.yml
+version: '2'
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+  kafka:
+    image: wurstmeister/kafka:2.12-2.1.0
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_LISTENERS: PLAINTEXT://:9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CREATE_TOPICS: "topic001:2:1"
+      KAFKA_HEAP_OPTS: "-Xmx256M -Xms128M"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+```
+
+#### 问题
+
+1. 解决mysql8+使用navicat连接乱码问题
+
+   ```shell
+   ALTER USER 'root'@'localhost' IDENTIFIED BY 'mySt8#pW' PASSWORD EXPIRE NEVER; #修改加密规则 
+   ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'mySt8#pW'; #更新一下用户的密码 
+   FLUSH PRIVILEGES; #刷新权限 
+   # --------------------------------------------------
+   select user,plugin from user where user = 'root';
+   delete from user where user = 'root' and plugin = 'caching_sha2_password'
+   update user set host = '%' where user = 'root';
+   FLUSH PRIVILEGES;
+   ```
+
+2. Kafka 启动出现JVM内存不足异常解决方法
+
+   编辑bin/kafka-server.start.sh
+
+   修改`export KAFKA_HEAP_OPTS="-Xmx1G -Xms1G"`
+
+   为`export KAFKA_HEAP_OPTS="-Xmx256M -Xms128M"`
+
+   即可
+
+3. mySt8#pW.sec4
+
+   
