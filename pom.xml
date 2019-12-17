@@ -8,13 +8,6 @@
     <artifactId>noc-ad</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <!--聚合子模块：使用modules标签-->
-    <modules>
-        <module>ad-eureka</module>
-        <module>ad-gateway</module>
-        <module>noc-ad-service</module>
-    </modules>
-
     <!--父模块pom文件的配置：packaging类型必须是pom-->
     <packaging>pom</packaging>
 
@@ -22,6 +15,14 @@
     <name>advertising-systems</name>
     <description>Project For Advertising Systems</description>
 
+    <!--聚合子模块：使用modules标签-->
+    <modules>
+        <module>ad-eureka</module>
+        <module>ad-gateway</module>
+        <module>noc-ad-service</module>
+    </modules>
+
+    <!--使主工程基于Spring Boot实现-->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -41,6 +42,7 @@
             <artifactId>lombok</artifactId>
             <version>1.16.18</version>
         </dependency>
+        <!--编写测试用例-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

@@ -14,15 +14,15 @@ spring:
       hibernate.format_sql: true
     open-in-view: false
   datasource:
-    url: jdbc:mysql://118.126.111.144:3306/noc_ad_data?autoReconnect=true
+    url: jdbc:mysql://106.14.239.125:3306/noc_ad_data?autoReconnect=true
     username: root
-    password: mySt8#pW
+    password: qwer1234
     tomcat:
       max-active: 4
       min-idle: 2
       initial-size: 2
   kafka:
-    bootstrap-servers: 118.126.111.144:9092
+    bootstrap-servers: 106.14.239.125:9092
     listener:
       concurrency: 4
 
@@ -44,7 +44,7 @@ management:
 
 adconf:
   mysql:
-    host: 118.126.111.144
+    host: 106.14.239.125
     port: 3306
     username: root
     password: mySt8#pW
