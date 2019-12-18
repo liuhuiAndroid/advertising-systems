@@ -41,14 +41,11 @@ public class PreRequestFilter extends ZuulFilter {
      * filter执行的具体操作
      *
      * @return
-     * @throws ZuulException
      */
     @Override
-    public Object run() throws ZuulException {
-
+    public Object run() {
         RequestContext ctx = RequestContext.getCurrentContext();
         ctx.set("startTime", System.currentTimeMillis());
-
         return null;
     }
 }

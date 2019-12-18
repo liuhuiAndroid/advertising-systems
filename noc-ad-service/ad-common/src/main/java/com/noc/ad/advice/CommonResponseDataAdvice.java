@@ -29,8 +29,10 @@ public class CommonResponseDataAdvice implements ResponseBodyAdvice<Object> {
     public boolean supports(MethodParameter methodParameter,
                             Class<? extends HttpMessageConverter<?>> aClass) {
         if (methodParameter.getDeclaringClass().isAnnotationPresent(IgnoreResponseAdvice.class)) {
+            // 如果类被这个注解标识，不拦截
             return false;
         } else if (methodParameter.getMethod().isAnnotationPresent(IgnoreResponseAdvice.class)) {
+            // 如果方法被这个注解标识，不拦截
             return false;
         } else {
             return true;
