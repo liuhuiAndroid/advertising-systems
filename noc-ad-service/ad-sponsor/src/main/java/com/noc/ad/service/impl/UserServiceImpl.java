@@ -25,6 +25,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    // 开启事务
     @Transactional
     public CreateUserResponse createUser(CreateUserRequest request)
             throws AdException {

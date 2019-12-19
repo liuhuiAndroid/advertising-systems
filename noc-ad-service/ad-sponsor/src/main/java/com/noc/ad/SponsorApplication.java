@@ -6,8 +6,9 @@ import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
+// 为了调用其他微服务和监控
 @EnableFeignClients
-// 断路器
+// 断路器，为了实现监控
 @EnableCircuitBreaker
 @EnableEurekaClient
 @SpringBootApplication

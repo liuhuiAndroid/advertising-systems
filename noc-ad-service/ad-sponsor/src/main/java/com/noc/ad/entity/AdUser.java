@@ -18,12 +18,16 @@ import java.util.Date;
 @Table(name = "ad_user")
 public class AdUser {
 
+    // 主键
     @Id
+    // 主键生成策略：自增策咯
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
     // 账户名称
+    // @Basic 是默认的
+    // @Transient
     @Basic
     @Column(name = "username", nullable = false)
     private String username;
