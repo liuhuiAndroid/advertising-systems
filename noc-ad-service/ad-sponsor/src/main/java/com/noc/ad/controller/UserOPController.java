@@ -22,6 +22,13 @@ public class UserOPController {
         this.userService = userService;
     }
 
+    /**
+     * 创建用户
+     *
+     * @param request
+     * @return
+     * @throws AdException
+     */
     @PostMapping("/create/user")
     public CreateUserResponse createUser(@RequestBody CreateUserRequest request)
             throws AdException {

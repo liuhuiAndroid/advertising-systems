@@ -32,7 +32,7 @@ public class AdUnitOPController {
     @PostMapping("/create/unitKeyword")
     public AdUnitKeywordResponse createUnitKeyword(
             @RequestBody AdUnitKeywordRequest request
-            ) throws AdException {
+    ) throws AdException {
         log.info("ad-sponsor: createUnitKeyword -> {}",
                 JSON.toJSONString(request));
         return adUnitService.createUnitKeyword(request);
@@ -41,7 +41,7 @@ public class AdUnitOPController {
     @PostMapping("/create/unitIt")
     public AdUnitItResponse createUnitIt(
             @RequestBody AdUnitItRequest request
-            ) throws AdException {
+    ) throws AdException {
         log.info("ad-sponsor: createUnitIt -> {}",
                 JSON.toJSONString(request));
         return adUnitService.createUnitIt(request);
@@ -50,7 +50,7 @@ public class AdUnitOPController {
     @PostMapping("/create/unitDistrict")
     public AdUnitDistrictResponse createUnitDistrict(
             @RequestBody AdUnitDistrictRequest request
-            ) throws AdException {
+    ) throws AdException {
         log.info("ad-sponsor: createUnitDistrict -> {}",
                 JSON.toJSONString(request));
         return adUnitService.createUnitDistrict(request);
@@ -59,7 +59,7 @@ public class AdUnitOPController {
     @PostMapping("/create/creativeUnit")
     public CreativeUnitResponse createCreativeUnit(
             @RequestBody CreativeUnitRequest request
-            ) throws AdException {
+    ) throws AdException {
         log.info("ad-sponsor: createCreativeUnit -> {}",
                 JSON.toJSONString(request));
         return adUnitService.createCreativeUnit(request);

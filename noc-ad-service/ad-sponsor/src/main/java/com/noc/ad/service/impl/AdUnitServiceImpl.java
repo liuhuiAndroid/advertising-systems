@@ -83,6 +83,13 @@ public class AdUnitServiceImpl implements IAdUnitService {
                 newAdUnit.getUnitName());
     }
 
+    /**
+     * 创建推广单元的关键词限制
+     *
+     * @param request
+     * @return
+     * @throws AdException
+     */
     @Override
     public AdUnitKeywordResponse createUnitKeyword(
             AdUnitKeywordRequest request) throws AdException {
@@ -155,6 +162,13 @@ public class AdUnitServiceImpl implements IAdUnitService {
         return new AdUnitDistrictResponse(ids);
     }
 
+    /**
+     * 创意与推广单元关联
+     *
+     * @param request
+     * @return
+     * @throws AdException
+     */
     @Override
     public CreativeUnitResponse createCreativeUnit(
             CreativeUnitRequest request) throws AdException {
@@ -183,6 +197,12 @@ public class AdUnitServiceImpl implements IAdUnitService {
         return new CreativeUnitResponse(ids);
     }
 
+    /**
+     * 相关推广单元是否存在
+     *
+     * @param unitIds
+     * @return
+     */
     private boolean isRelatedUnitExist(List<Long> unitIds) {
 
         if (CollectionUtils.isEmpty(unitIds)) {
