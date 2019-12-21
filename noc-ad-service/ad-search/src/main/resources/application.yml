@@ -31,6 +31,7 @@ eureka:
     service-url:
       defaultZone: http://server1:8000/eureka/
 
+# feign配置
 feign:
   hystrix:
     enabled: true

@@ -10,12 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
-@FeignClient(value = "eureka-client-ad-sponsor",
-        fallback = SponsorClientHystrix.class)
+// 服务降级
+@FeignClient(value = "eureka-client-ad-sponsor", fallback = SponsorClientHystrix.class)
 public interface SponsorClient {
 
-    @RequestMapping(value = "/ad-sponsor/get/adPlan",
-            method = RequestMethod.POST)
-    CommonResponse<List<AdPlan>> getAdPlans(
-            @RequestBody AdPlanGetRequest request);
+    @RequestMapping(value = "/ad-sponsor/get/adPlan", method = RequestMethod.POST)
+    CommonResponse<List<AdPlan>> getAdPlans(@RequestBody AdPlanGetRequest request);
+
 }

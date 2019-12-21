@@ -1,6 +1,7 @@
 package com.imooc.ad.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.imooc.ad.client.SponsorClient;
 import com.imooc.ad.client.vo.AdPlan;
 import com.imooc.ad.client.vo.AdPlanGetRequest;
 import com.noc.ad.annotation.IgnoreResponseAdvice;
@@ -20,9 +21,25 @@ public class SearchController {
 
     private final RestTemplate restTemplate;
 
+    private final SponsorClient sponsorClient;
+
     @Autowired
-    public SearchController(RestTemplate restTemplate) {
+    public SearchController(RestTemplate restTemplate, SponsorClient sponsorClient) {
         this.restTemplate = restTemplate;
+        this.sponsorClient = sponsorClient;
+    }
+
+    /**
+     * 使用Feign调用ad-sponsor微服务的方法
+     *
+     * @param request
+     * @return
+     */
+    @IgnoreResponseAdvice
+    @PostMapping("/getAdPlans")
+    public CommonResponse<List<AdPlan>> getAdPlans(@RequestBody AdPlanGetRequest request) {
+        log.info("ad-search: getAdPlans -> {}", JSON.toJSONString(request));
+        return sponsorClient.getAdPlans(request);
     }
 
     /**
