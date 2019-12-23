@@ -1,0 +1,37 @@
+server:
+  port: 7000
+  servlet:
+    # http请求根路径前缀
+    context-path: /ad-sponsor
+
+spring:
+  application:
+    name: eureka-client-ad-sponsor
+  jpa:
+    show-sql: true
+    hibernate:
+      # 不使用ddl操作
+      ddl-auto: none
+    properties:
+      hibernate.format_sql: true
+    open-in-view: false
+  # 数据源配置
+  datasource:
+    url: jdbc:mysql://106.14.239.125:3306/noc_ad_data?autoReconnect=true
+    username: root
+    password: qwer1234
+    # tomcat 数据库连接池
+    tomcat:
+      # 最大连接数
+      max-active: 4
+      # 最小空闲连接数
+      min-idle: 2
+      # 默认初始化连接数
+      initial-size: 2
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://server1:8000/eureka/
+
+
